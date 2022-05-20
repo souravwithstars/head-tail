@@ -1,1 +1,13 @@
-console.log('usage: head [-n lines | -c bytes] [file ...]');
+const fs = require('fs');
+
+const { headMain } = require('./src/headLib.js');
+
+const main = () => {
+  const argumentToFunc = process.argv.slice(2);
+  if (argumentToFunc.length === 0) {
+    console.log('usage: head [-n lines | -c bytes] [file ...]');
+  }
+  console.log(headMain(process.argv[2], fs.readFileSync));
+};
+
+main();

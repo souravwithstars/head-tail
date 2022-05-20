@@ -1,9 +1,7 @@
 __TODO:__
 
 - [ ] Implement `head` with bytes (-c) option.
-- [ ] Implement `head file` without options.
 - [ ] Provide default for options of `head`.
-- [ ] Introduce `head.js`, that runs from command line. 
  
 __MAYBE:__
 
@@ -27,3 +25,5 @@ __DONE:__
 - [x] Implement options as an object.
 - [x] Implement `head` with count (-n) option.
 - [x] Separate test files for line utilities.
+- [x] Introduce `head.js`, that runs from command line. 
+- [x] Implement `head file` without options.
