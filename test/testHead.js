@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head } = require('../src/head.js');
+const { head } = require('../src/headLib.js');
 
 describe('head ', () => {
   it('Should give a line', () => {

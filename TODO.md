@@ -12,3 +12,4 @@ __DONE:__
 - [x] Make `testHead.js`.
 - [x] Start with an expectation.
 - [x] Make head work for a single line instead of file.
+- [x] Create `headLib` in src and keep `head.js` in root of working project.
