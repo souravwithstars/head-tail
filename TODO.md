@@ -4,7 +4,10 @@ __TODO:__
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Implement `head file` without options.
 - [ ] Provide default for options of `head`.
-
+- [ ] Implement different function for split and join lines.
+- [ ] Extracted `\n` to a constant.
+- [ ] Introduce `head.js`, that runs from command line. 
+ 
 __MAYBE:__
 
 
