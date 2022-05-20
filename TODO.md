@@ -1,9 +1,7 @@
 __TODO:__
 
-- [ ] Provide default for options of `head`.
-- [ ] Parse arguments passed to main.
 - [ ] Add try catch block for readfile.
-- [ ] Implement `-c` as an command line argument.
+- [ ] Report error when unable to read file.
  
 __MAYBE:__
 
@@ -36,3 +34,6 @@ __DONE:__
 - [x] Extract separator and option selection in different function.
 - [x] Implement `-n` as an command line argument.
 - [x] Change the contract of Main.
+- [x] Provide default for options of `head`.
+- [x] Parse arguments passed to main.
+- [x] Implement `-c` as an command line argument.

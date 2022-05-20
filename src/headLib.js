@@ -1,4 +1,5 @@
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
+const { parseArgs } = require('./parseArgs.js');
 
 const selector = ({ count, bytes }) => {
   const newLine = '\n';
@@ -20,10 +21,9 @@ const head = (content, options) => {
 };
 
 const headMain = (readFile, ...args) => {
-  const fileName = args[args.length - 1];
-  const count = args[1] && args[0] === '-n' ? +args[1] : 1;
+  const { fileName, options } = parseArgs(args);
   const content = readFile(fileName, 'utf8');
-  return head(content, { count });
+  return head(content, options);
 };
 
 exports.head = head;
