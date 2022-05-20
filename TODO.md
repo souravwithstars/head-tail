@@ -1,6 +1,5 @@
 __TODO:__
 
-- [ ] Implement options as a parameter to `head`.
 - [ ] Implement `head` with count (-n) option.
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Implement `head file` without options.
@@ -8,7 +7,6 @@ __TODO:__
 
 __MAYBE:__
 
-- [ ] Consider a different contract for functions in Lib.
 
 __DONE:__
 
@@ -22,3 +20,5 @@ __DONE:__
 - [x] Make `head` work for two lines.
 - [x] Make `head` work for empty line.
 - [x] Investigate how options work for `head`.
+- [x] Implement options as a parameter to `head`.
+- [x] Consider a different contract for functions in Lib.

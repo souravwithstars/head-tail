@@ -19,4 +19,13 @@ describe('head ', () => {
   it('Should give in between empty line', () => {
     assert.strictEqual(head('hello\n\nworld'), 'hello\n\nworld');
   });
+
+  it('Should give a single line', () => {
+    assert.strictEqual(head('hello', 1), 'hello');
+  });
+
+  it('Should give first line', () => {
+    assert.strictEqual(head('hello\nworld', 1), 'hello');
+    assert.strictEqual(head('bye\nworld', 1), 'bye');
+  });
 });
