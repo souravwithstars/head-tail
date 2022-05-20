@@ -26,3 +26,4 @@ __DONE:__
 - [x] Extracted `\n` to a constant.
 - [x] Implement options as an object.
 - [x] Implement `head` with count (-n) option.
+- [x] Separate test files for line utilities.
