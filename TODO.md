@@ -1,7 +1,6 @@
 __TODO:__
 
 - [ ] Provide default for options of `head`.
-- [] Extract separator and option selection in different function.
  
 __MAYBE:__
 
@@ -31,3 +30,4 @@ __DONE:__
 - [x] Implement function for `.slice()`.
 - [x] Implement --help if no argument passed to `head.js`.
 - [x] Implement `head` with bytes (-c) option.
+- [x] Extract separator and option selection in different function.

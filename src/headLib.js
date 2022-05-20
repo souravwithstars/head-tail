@@ -1,6 +1,6 @@
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 
-const head = (content, { count, bytes }) => {
+const selector = ({ count, bytes }) => {
   const newLine = '\n';
   const newChar = '';
   let separator = newLine;
@@ -9,6 +9,11 @@ const head = (content, { count, bytes }) => {
     separator = newChar;
     option = bytes;
   }
+  return { separator, option };
+};
+
+const head = (content, options) => {
+  const { separator, option } = selector(options);
   const lines = splitLines(content, separator);
   const requiredLines = uptoNthEle(lines, option);
   return joinLines(requiredLines, separator);
