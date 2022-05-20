@@ -2,6 +2,7 @@ __TODO:__
 
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Provide default for options of `head`.
+- [ ] Implement --help if no argument passed to `head.js`.
  
 __MAYBE:__
 
