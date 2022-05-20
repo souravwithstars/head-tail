@@ -19,9 +19,11 @@ const head = (content, options) => {
   return joinLines(requiredLines, separator);
 };
 
-const headMain = (fileName, readFile) => {
+const headMain = (readFile, ...args) => {
+  const fileName = args[args.length - 1];
+  const count = args[1] && args[0] === '-n' ? +args[1] : 1;
   const content = readFile(fileName, 'utf8');
-  return head(content, { count: 1 });
+  return head(content, { count });
 };
 
 exports.head = head;

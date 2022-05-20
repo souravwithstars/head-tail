@@ -3,7 +3,7 @@ __TODO:__
 - [ ] Provide default for options of `head`.
 - [ ] Parse arguments passed to main.
 - [ ] Add try catch block for readfile.
-- [ ] Change the contract of Main.
+- [ ] Implement `-c` as an command line argument.
  
 __MAYBE:__
 
@@ -34,3 +34,5 @@ __DONE:__
 - [x] Implement --help if no argument passed to `head.js`.
 - [x] Implement `head` with bytes (-c) option.
 - [x] Extract separator and option selection in different function.
+- [x] Implement `-n` as an command line argument.
+- [x] Change the contract of Main.

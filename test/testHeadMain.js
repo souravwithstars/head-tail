@@ -12,6 +12,12 @@ const mockReadData = (mockFile, content, mockEncoding) => {
 describe('headMain', () => {
   it('Should give the lines of given single file', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
-    assert.strictEqual(headMain('hello.txt', mockReadFileSync), 'hello');
+    assert.strictEqual(headMain(mockReadFileSync, 'hello.txt'), 'hello');
+  });
+
+  it('Should give only first line of the given file', () => {
+    const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
+    assert.strictEqual(headMain(
+      mockReadFileSync, '-n', 1, 'hello.txt'), 'hello');
   });
 });

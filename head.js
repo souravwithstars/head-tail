@@ -8,7 +8,7 @@ const main = () => {
     console.log('usage: head [-n lines | -c bytes] [file ...]');
     return 1;
   }
-  console.log(headMain(process.argv[2], fs.readFileSync));
+  console.log(headMain(fs.readFileSync, ...argumentToFunc));
 };
 
 main();
