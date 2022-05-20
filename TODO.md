@@ -4,7 +4,6 @@ __TODO:__
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Implement `head file` without options.
 - [ ] Provide default for options of `head`.
-- [ ] Implement different function for split and join lines.
 - [ ] Extracted `\n` to a constant.
 - [ ] Introduce `head.js`, that runs from command line. 
  
@@ -25,3 +24,4 @@ __DONE:__
 - [x] Investigate how options work for `head`.
 - [x] Implement options as a parameter to `head`.
 - [x] Consider a different contract for functions in Lib.
+- [x] Implement different function for split and join lines.

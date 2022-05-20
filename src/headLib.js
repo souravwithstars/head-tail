@@ -1,6 +1,12 @@
+const splitLines = content => content.split('\n');
+
+const joinLines = lines => lines.join('\n');
+
 const head = (content, numberOfLines) => {
-  const lines = content.split('\n');
-  return lines.slice(0, numberOfLines).join('\n');
+  const lines = splitLines(content);
+  return joinLines(lines.slice(0, numberOfLines));
 };
 
 exports.head = head;
+exports.splitLines = splitLines;
+exports.joinLines = joinLines;
