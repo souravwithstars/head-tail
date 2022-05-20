@@ -2,7 +2,6 @@ __TODO:__
 
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Provide default for options of `head`.
-- [ ] Implement --help if no argument passed to `head.js`.
  
 __MAYBE:__
 
@@ -30,3 +29,4 @@ __DONE:__
 - [x] Introduce `head.js`, that runs from command line. 
 - [x] Implement `head file` without options.
 - [x] Implement function for `.slice()`.
+- [x] Implement --help if no argument passed to `head.js`.
