@@ -1,6 +1,5 @@
 __TODO:__
 
-- [ ] Implement `head` with count (-n) option.
 - [ ] Implement `head` with bytes (-c) option.
 - [ ] Implement `head file` without options.
 - [ ] Provide default for options of `head`.
@@ -25,3 +24,5 @@ __DONE:__
 - [x] Consider a different contract for functions in Lib.
 - [x] Implement different function for split and join lines.
 - [x] Extracted `\n` to a constant.
+- [x] Implement options as an object.
+- [x] Implement `head` with count (-n) option.

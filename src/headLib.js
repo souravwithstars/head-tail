@@ -4,9 +4,9 @@ const splitLines = content => content.split(NEWLINE);
 
 const joinLines = lines => lines.join(NEWLINE);
 
-const head = (content, numberOfLines) => {
+const head = (content, { count }) => {
   const lines = splitLines(content);
-  return joinLines(lines.slice(0, numberOfLines));
+  return joinLines(lines.slice(0, count));
 };
 
 exports.head = head;
