@@ -26,3 +26,4 @@ const headMain = (fileName, readFile) => {
 
 exports.head = head;
 exports.headMain = headMain;
+exports.selector = selector;

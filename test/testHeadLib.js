@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { head } = require('../src/headLib.js');
+const { head, selector } = require('../src/headLib.js');
 
 describe('head ', () => {
   it('Should give a line', () => {
@@ -38,5 +38,17 @@ describe('head ', () => {
   it('Should give first 10 characters', () => {
     assert.strictEqual(head('hello world', { bytes: 10 }), 'hello worl');
     assert.strictEqual(head('bye bye world', { bytes: 10 }), 'bye bye wo');
+  });
+});
+
+describe('selector', () => {
+  it('Should give newLine as separator and count as option', () => {
+    assert.deepStrictEqual(selector({ count: 1, bytes: undefined }),
+      { separator: '\n', option: 1 });
+  });
+
+  it('Should give empty charcater as separator and bytes as option', () => {
+    assert.deepStrictEqual(selector({ count: 1, bytes: 10 }),
+      { separator: '', option: 10 });
   });
 });
