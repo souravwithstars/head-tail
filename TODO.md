@@ -1,6 +1,8 @@
 __TODO:__
 
 - [ ] Provide default for options of `head`.
+- [ ] Parse arguments passed to main.
+- [ ] Add try catch block for readfile.
  
 __MAYBE:__
 
