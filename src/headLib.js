@@ -1,6 +1,8 @@
-const splitLines = content => content.split('\n');
+const NEWLINE = '\n';
 
-const joinLines = lines => lines.join('\n');
+const splitLines = content => content.split(NEWLINE);
+
+const joinLines = lines => lines.join(NEWLINE);
 
 const head = (content, numberOfLines) => {
   const lines = splitLines(content);
