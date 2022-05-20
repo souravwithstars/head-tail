@@ -1,8 +1,9 @@
-const { splitLines, joinLines } = require('./lineUtitlities.js');
+const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 
 const head = (content, { count }) => {
   const lines = splitLines(content);
-  return joinLines(lines.slice(0, count));
+  const requiredLines = uptoNthEle(lines, count);
+  return joinLines(requiredLines);
 };
 
 const headMain = (fileName, readFile) => {
@@ -11,6 +12,4 @@ const headMain = (fileName, readFile) => {
 };
 
 exports.head = head;
-exports.splitLines = splitLines;
-exports.joinLines = joinLines;
 exports.headMain = headMain;

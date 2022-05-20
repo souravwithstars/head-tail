@@ -112,6 +112,14 @@
       "rules": {
         "no-console": "off"
       }
+    },
+    {
+      "files": [
+        "*.js"
+      ],
+      "rules": {
+        "no-magic-numbers": "off"
+      }
     }
   ]
 }

@@ -5,6 +5,7 @@ __TODO:__
  
 __MAYBE:__
 
+- [ ] Consider different structure for functions.
 
 __DONE:__
 
@@ -19,7 +20,7 @@ __DONE:__
 - [x] Make `head` work for empty line.
 - [x] Investigate how options work for `head`.
 - [x] Implement options as a parameter to `head`.
-- [x] Consider a different contract for functions in Lib.
+- [x] Implement a different contract for functions in Lib.
 - [x] Implement different function for split and join lines.
 - [x] Extracted `\n` to a constant.
 - [x] Implement options as an object.
@@ -27,3 +28,4 @@ __DONE:__
 - [x] Separate test files for line utilities.
 - [x] Introduce `head.js`, that runs from command line. 
 - [x] Implement `head file` without options.
+- [x] Implement function for `.slice()`.
