@@ -11,4 +11,12 @@ describe('head ', () => {
     assert.strictEqual(head('hello\nworld'), 'hello\nworld');
     assert.strictEqual(head('bye\nworld'), 'bye\nworld');
   });
+
+  it('Should give one empty line', () => {
+    assert.strictEqual(head(''), '');
+  });
+
+  it('Should give in between empty line', () => {
+    assert.strictEqual(head('hello\n\nworld'), 'hello\n\nworld');
+  });
 });

@@ -1,10 +1,13 @@
 __TODO:__
 
-- [ ] Make `head` work for empty line.
 - [ ] Implement `head file` without options.
-- [ ] Investigate how options work for `head`.
 - [ ] Implement options as a parameter to `head`.
 - [ ] Implement `head` with count (-c) option.
+- [ ] Provide default for options of `head`.
+
+__MAYBE:__
+
+- [ ] Consider a different contract for functions in Lib.
 
 __DONE:__
 
@@ -15,4 +18,6 @@ __DONE:__
 - [x] Start with an expectation.
 - [x] Make `head` work for a single line instead of file.
 - [x] Create `headLib` in src and keep `head.js` in root of working project.
-- [x] Make `head` work for multiple lines.
+- [x] Make `head` work for two lines.
+- [x] Make `head` work for empty line.
+- [x] Investigate how options work for `head`.
