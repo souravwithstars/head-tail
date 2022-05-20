@@ -1,8 +1,9 @@
 __TODO:__
 
-- [ ] Implement `head file` without options.
 - [ ] Implement options as a parameter to `head`.
-- [ ] Implement `head` with count (-c) option.
+- [ ] Implement `head` with count (-n) option.
+- [ ] Implement `head` with bytes (-c) option.
+- [ ] Implement `head file` without options.
 - [ ] Provide default for options of `head`.
 
 __MAYBE:__
