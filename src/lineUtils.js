@@ -1,10 +1,8 @@
-const NEWLINE = '\n';
+const splitLines = (content, separator) => content.split(separator);
 
-const splitLines = content => content.split(NEWLINE);
+const joinLines = (lines, separator) => lines.join(separator);
 
-const joinLines = lines => lines.join(NEWLINE);
-
-const uptoNthEle = (lines, numberOfLines) => lines.slice(0, numberOfLines);
+const uptoNthEle = (lines, noOfElements) => lines.slice(0, noOfElements);
 
 exports.splitLines = splitLines;
 exports.joinLines = joinLines;

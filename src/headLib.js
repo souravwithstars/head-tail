@@ -1,9 +1,17 @@
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 
-const head = (content, { count }) => {
-  const lines = splitLines(content);
-  const requiredLines = uptoNthEle(lines, count);
-  return joinLines(requiredLines);
+const head = (content, { count, bytes }) => {
+  const newLine = '\n';
+  const newChar = '';
+  let separator = newLine;
+  let option = count;
+  if (bytes >= 0) {
+    separator = newChar;
+    option = bytes;
+  }
+  const lines = splitLines(content, separator);
+  const requiredLines = uptoNthEle(lines, option);
+  return joinLines(requiredLines, separator);
 };
 
 const headMain = (fileName, readFile) => {

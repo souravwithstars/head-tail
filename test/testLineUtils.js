@@ -3,49 +3,55 @@ const { splitLines, joinLines, uptoNthEle } = require('../src/lineUtils.js');
 
 describe('splitLines', () => {
   it('Should give array of a single element', () => {
-    assert.deepStrictEqual(splitLines('hello'), ['hello']);
-    assert.deepStrictEqual(splitLines('bye'), ['bye']);
+    assert.deepStrictEqual(splitLines('hello', '\n'), ['hello']);
+    assert.deepStrictEqual(splitLines('bye', '\n'), ['bye']);
   });
 
   it('Should give array of a two element', () => {
-    assert.deepStrictEqual(splitLines('hello\nworld'), ['hello', 'world']);
-    assert.deepStrictEqual(splitLines('bye\nworld'), ['bye', 'world']);
+    assert.deepStrictEqual(splitLines('bye\nworld', '\n'), ['bye', 'world']);
+    assert.deepStrictEqual(splitLines('bye\nbye', '\n'), ['bye', 'bye']);
   });
 
   it('Should give in empty element', () => {
-    assert.deepStrictEqual(splitLines(''), ['']);
+    assert.deepStrictEqual(splitLines('', '\n'), ['']);
+  });
+
+  it('Should give five elements', () => {
+    assert.deepStrictEqual(splitLines('hello', ''), ['h', 'e', 'l', 'l', 'o']);
   });
 
   it('Should give in between empty lines as elements', () => {
     assert.deepStrictEqual(
-      splitLines('hello\n\nworld'), ['hello', '', 'world']);
-    assert.deepStrictEqual(splitLines('bye\n\nworld'), ['bye', '', 'world']);
+      splitLines('hello\n\nworld', '\n'), ['hello', '', 'world']);
+    assert.deepStrictEqual(splitLines('bye\n\nworld', ''),
+      ['b', 'y', 'e', '\n', '\n', 'w', 'o', 'r', 'l', 'd']);
   });
 });
 
 describe('joinLines', () => {
   it('Should give a single line', () => {
-    assert.deepStrictEqual(joinLines(['hello']), 'hello');
-    assert.deepStrictEqual(joinLines(['bye']), 'bye');
+    assert.deepStrictEqual(joinLines(['hello'], '\n'), 'hello');
+    assert.deepStrictEqual(joinLines(['bye'], '\n'), 'bye');
   });
 
   it('Should give array of a two element', () => {
-    assert.deepStrictEqual(joinLines(['hello', 'world']), 'hello\nworld');
-    assert.deepStrictEqual(joinLines(['bye', 'world']), 'bye\nworld');
+    assert.deepStrictEqual(joinLines(['hello', 'world'], '\n'), 'hello\nworld');
+    assert.deepStrictEqual(joinLines(['bye', 'world'], '\n'), 'bye\nworld');
   });
 
   it('Should give in empty element', () => {
-    assert.deepStrictEqual(joinLines(['']), '');
+    assert.deepStrictEqual(joinLines([''], '\n'), '');
   });
 
   it('Should give in between empty lines as elements', () => {
     assert.deepStrictEqual(
-      joinLines(['hello', '', 'world']), 'hello\n\nworld');
-    assert.deepStrictEqual(joinLines(['bye', '', 'world']), 'bye\n\nworld');
+      joinLines(['hello', '', 'world'], '\n'), 'hello\n\nworld');
+    assert.deepStrictEqual(joinLines(
+      ['b', 'y', 'e', '', '', 'w', 'o', 'r', 'l', 'd'], ''), 'byeworld');
   });
 });
 
-describe.only('uptoNthEle', () => {
+describe('uptoNthEle', () => {
   it('Should give first elementof the given array', () => {
     assert.deepStrictEqual(uptoNthEle(['hello'], 1), ['hello']);
   });

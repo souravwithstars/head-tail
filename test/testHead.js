@@ -25,4 +25,18 @@ describe('head ', () => {
     assert.strictEqual(head('hello\nworld', { count: 1 }), 'hello');
     assert.strictEqual(head('bye\nworld', { count: 1 }), 'bye');
   });
+
+  it('Should give first character', () => {
+    assert.strictEqual(head('hello', { bytes: 1 }), 'h');
+    assert.strictEqual(head('bye', { bytes: 1 }), 'b');
+  });
+
+  it('Should give no character', () => {
+    assert.strictEqual(head('hello', { bytes: 0 }), '');
+  });
+
+  it('Should give first 10 characters', () => {
+    assert.strictEqual(head('hello world', { bytes: 10 }), 'hello worl');
+    assert.strictEqual(head('bye bye world', { bytes: 10 }), 'bye bye wo');
+  });
 });
