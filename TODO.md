@@ -1,6 +1,6 @@
 __TODO:__
 
-- [ ] Establish contract for utility.
+- [x] Establish contract for utility.
 - [ ] Make correct directory structure.
 - [ ] Verify `mocha` exists.
 - [ ] Make `testHead.js`.
