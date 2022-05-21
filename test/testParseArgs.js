@@ -24,6 +24,17 @@ describe('parseArgs', () => {
     });
   });
 
+  it('Should override the value for repeated option ', () => {
+    assert.deepStrictEqual(parseArgs(['-n', '5', '-n', '6', './hello.txt']), {
+      fileName: './hello.txt',
+      options: { lines: 6, bytes: undefined }
+    });
+    assert.deepStrictEqual(parseArgs(['-c', '5', '-c', '15', './hello.txt']), {
+      fileName: './hello.txt',
+      options: { lines: 10, bytes: 15 }
+    });
+  });
+
   it('Should parse -c option along with file name', () => {
     assert.deepStrictEqual(parseArgs(['-c', '5', './hello.txt']), {
       fileName: './hello.txt',
