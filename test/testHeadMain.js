@@ -9,7 +9,7 @@ const mockReadData = (mockFile, content, mockEncoding) => {
   };
 };
 
-describe('headMain', () => {
+describe.only('headMain', () => {
   it('Should give the lines of given single file', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
     assert.strictEqual(headMain(mockReadFileSync, 'hello.txt'), 'hello');
@@ -19,5 +19,15 @@ describe('headMain', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
     assert.strictEqual(headMain(
       mockReadFileSync, '-n', 1, 'hello.txt'), 'hello');
+  });
+
+  it('Should give error if unable to read file', () => {
+    const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
+    assert.throws(() => headMain(mockReadFileSync, '-n', 1, 'something.txt'),
+      {
+        name: 'FileReadError',
+        message: 'Unable to read something.txt',
+        fileName: 'something.txt'
+      });
   });
 });

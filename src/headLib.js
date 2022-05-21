@@ -22,7 +22,16 @@ const head = (content, options) => {
 
 const headMain = (readFile, ...args) => {
   const { fileName, options } = parseArgs(args);
-  const content = readFile(fileName, 'utf8');
+  let content;
+  try {
+    content = readFile(fileName, 'utf8');
+  } catch (error) {
+    throw {
+      name: 'FileReadError',
+      message: `Unable to read ${fileName}`,
+      fileName
+    };
+  }
   return head(content, options);
 };
 

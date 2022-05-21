@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const { parseArgs } = require('../src/parseArgs.js');
 
-describe.only('parseArgs', () => {
+describe('parseArgs', () => {
   it('Should parse only the file name', () => {
     assert.deepStrictEqual(parseArgs(['./hello.txt']), {
       fileName: './hello.txt',

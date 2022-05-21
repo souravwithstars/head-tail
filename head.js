@@ -8,7 +8,11 @@ const main = () => {
     console.log('usage: head [-n lines | -c bytes] [file ...]');
     return 1;
   }
-  console.log(headMain(fs.readFileSync, ...argumentToFunc));
+  try {
+    console.log(headMain(fs.readFileSync, ...argumentToFunc));
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 
 main();

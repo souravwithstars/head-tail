@@ -1,11 +1,9 @@
 __TODO:__
 
-- [ ] Add try catch block for readfile.
-- [ ] Report error when unable to read file.
+- [ ] Provide a default of 10 for -n option.
+- [ ] Make `head` work for multiple files.
  
 __MAYBE:__
-
-- [ ] Consider different structure for functions.
 
 __DONE:__
 
@@ -37,3 +35,6 @@ __DONE:__
 - [x] Provide default for options of `head`.
 - [x] Parse arguments passed to main.
 - [x] Implement `-c` as an command line argument.
+- [x] Add try catch block for readfile.
+- [x] Report error when unable to read file.
+- [x] Consider different structure for functions.
