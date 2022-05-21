@@ -1,6 +1,5 @@
 __TODO:__
 
-- [ ] Provide a default of 10 for -n option.
 - [ ] Make `head` work for multiple files.
  
 __MAYBE:__
@@ -40,3 +39,4 @@ __DONE:__
 - [x] Consider different structure for functions.
 - [x] Report error when both switches provided.
 - [x] Changed option name from count to lines.
+- [x] Provide a default of 10 for -n option.

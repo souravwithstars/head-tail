@@ -6,7 +6,7 @@ describe('parseArgs', () => {
   it('Should parse only the file name', () => {
     assert.deepStrictEqual(parseArgs(['./hello.txt']), {
       fileName: './hello.txt',
-      options: { lines: undefined, bytes: undefined }
+      options: { lines: 10, bytes: undefined }
     });
   });
 
@@ -27,7 +27,7 @@ describe('parseArgs', () => {
   it('Should parse -c option along with file name', () => {
     assert.deepStrictEqual(parseArgs(['-c', '5', './hello.txt']), {
       fileName: './hello.txt',
-      options: { lines: undefined, bytes: 5 }
+      options: { lines: 10, bytes: 5 }
     });
   });
 });

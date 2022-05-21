@@ -21,6 +21,13 @@ describe('headMain', () => {
       mockReadFileSync, '-n', 1, 'hello.txt'), 'hello');
   });
 
+  it('Should give the first ten lines of the given file', () => {
+    const mockReadFileSync = mockReadData(
+      'numbers.txt', '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12', 'utf8');
+    assert.strictEqual(headMain(
+      mockReadFileSync, 'numbers.txt'), '0\n1\n2\n3\n4\n5\n6\n7\n8\n9');
+  });
+
   it('Should give error if unable to read file', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
     assert.throws(() => headMain(mockReadFileSync, '-n', 1, 'something.txt'),
