@@ -9,7 +9,7 @@ const mockReadData = (mockFile, content, mockEncoding) => {
   };
 };
 
-describe.only('headMain', () => {
+describe('headMain', () => {
   it('Should give the lines of given single file', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
     assert.strictEqual(headMain(mockReadFileSync, 'hello.txt'), 'hello');
@@ -29,5 +29,14 @@ describe.only('headMain', () => {
         message: 'Unable to read something.txt',
         fileName: 'something.txt'
       });
+  });
+
+  it('Should give error if unable to read file', () => {
+    const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
+    assert.throws(() => headMain(
+      mockReadFileSync, '-n', 1, '-c', 10, 'something.txt'), {
+      name: 'ParsingError',
+      message: 'head: cannot combine line and byte counts',
+    });
   });
 });

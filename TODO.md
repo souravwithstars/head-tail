@@ -38,3 +38,5 @@ __DONE:__
 - [x] Add try catch block for readfile.
 - [x] Report error when unable to read file.
 - [x] Consider different structure for functions.
+- [x] Report error when both switches provided.
+- [x] Changed option name from count to lines.

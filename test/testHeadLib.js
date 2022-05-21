@@ -3,27 +3,27 @@ const { head, selector } = require('../src/headLib.js');
 
 describe('head ', () => {
   it('Should give a line', () => {
-    assert.strictEqual(head('hello world', { count: 1 }), 'hello world');
-    assert.strictEqual(head('bye world', { count: 1 }), 'bye world');
+    assert.strictEqual(head('hello world', { lines: 1 }), 'hello world');
+    assert.strictEqual(head('bye world', { lines: 1 }), 'bye world');
   });
 
   it('Should give two lines', () => {
-    assert.strictEqual(head('hello\nworld', { count: 2 }), 'hello\nworld');
-    assert.strictEqual(head('bye\nworld', { count: 2 }), 'bye\nworld');
+    assert.strictEqual(head('hello\nworld', { lines: 2 }), 'hello\nworld');
+    assert.strictEqual(head('bye\nworld', { lines: 2 }), 'bye\nworld');
   });
 
   it('Should give one empty line', () => {
-    assert.strictEqual(head('', { count: 1 }), '');
+    assert.strictEqual(head('', { lines: 1 }), '');
   });
 
   it('Should give in between empty line', () => {
-    assert.strictEqual(head('hello\n\nworld', { count: 3 }),
+    assert.strictEqual(head('hello\n\nworld', { lines: 3 }),
       'hello\n\nworld');
   });
 
   it('Should give first line', () => {
-    assert.strictEqual(head('hello\nworld', { count: 1 }), 'hello');
-    assert.strictEqual(head('bye\nworld', { count: 1 }), 'bye');
+    assert.strictEqual(head('hello\nworld', { lines: 1 }), 'hello');
+    assert.strictEqual(head('bye\nworld', { lines: 1 }), 'bye');
   });
 
   it('Should give first character', () => {
@@ -42,13 +42,13 @@ describe('head ', () => {
 });
 
 describe('selector', () => {
-  it('Should give newLine as separator and count as option', () => {
-    assert.deepStrictEqual(selector({ count: 1, bytes: undefined }),
+  it('Should give newLine as separator and lines as option', () => {
+    assert.deepStrictEqual(selector({ lines: 1, bytes: undefined }),
       { separator: '\n', option: 1 });
   });
 
   it('Should give empty charcater as separator and bytes as option', () => {
-    assert.deepStrictEqual(selector({ count: 1, bytes: 10 }),
+    assert.deepStrictEqual(selector({ lines: 1, bytes: 10 }),
       { separator: '', option: 10 });
   });
 });
