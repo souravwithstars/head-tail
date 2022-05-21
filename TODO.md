@@ -1,6 +1,7 @@
 __TODO:__
 
 - [ ] Make `head` work for multiple files.
+- [ ] Make `head` for repeating same option.
  
 __MAYBE:__
 
