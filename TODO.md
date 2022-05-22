@@ -2,6 +2,7 @@ __TODO:__
 
 - [ ] Make `head` work for multiple files.
 - [ ] Report usage for invalid option and without file name.
+- [ ] Report error for invalid values to option.
  
 __MAYBE:__
 
@@ -42,3 +43,4 @@ __DONE:__
 - [x] Changed option name from count to lines.
 - [x] Provide a default of 10 for -n option.
 - [x] Make `head` for repeating same option.
+- [x] Refactoring parsing arguments for both `-n 5` and `-n5`.

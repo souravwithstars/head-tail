@@ -27,15 +27,15 @@ const headMain = (readFile, ...args) => {
       message: 'head: cannot combine line and byte counts',
     };
   }
-  const { fileName, options } = parseArgs(args);
+  const { fileNames, options } = parseArgs(args);
   let content;
   try {
-    content = readFile(fileName, 'utf8');
+    content = readFile(fileNames[0], 'utf8');
   } catch (error) {
     throw {
       name: 'FileReadError',
-      message: `Unable to read ${fileName}`,
-      fileName
+      message: `Unable to read ${fileNames[0]}`,
+      fileName: fileNames[0]
     };
   }
   return head(content, options);

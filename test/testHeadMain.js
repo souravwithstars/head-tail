@@ -23,7 +23,7 @@ describe('headMain', () => {
 
   it('Should give the first ten lines of the given file', () => {
     const mockReadFileSync = mockReadData(
-      'numbers.txt', '0\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12', 'utf8');
+      'numbers.txt', '0\n1\n2\n3\n4\n5\n6\n7\n8\n9', 'utf8');
     assert.strictEqual(headMain(
       mockReadFileSync, 'numbers.txt'), '0\n1\n2\n3\n4\n5\n6\n7\n8\n9');
   });
@@ -38,7 +38,7 @@ describe('headMain', () => {
       });
   });
 
-  it('Should give error if unable to read file', () => {
+  it('Should give error if both option provided', () => {
     const mockReadFileSync = mockReadData('hello.txt', 'hello', 'utf8');
     assert.throws(() => headMain(
       mockReadFileSync, '-n', 1, '-c', 10, 'something.txt'), {
