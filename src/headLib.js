@@ -24,6 +24,33 @@ const head = (content, options) => {
   return joinLines(requiredLines, separator);
 };
 
+const contentFormatter = content => {
+  if (content.length < 3) {
+    return content[content.length - 1];
+  }
+  return joinLines(content, '\n');
+};
+
+const headContents = (readFile, fileNames, options) => {
+  const content = [];
+  for (let index = 0; index < fileNames.length; index += 1) {
+    const fileName = fileNames[index];
+    try {
+      const fileContent = readFile(fileName, 'utf8');
+      content.push(`\n==> ${fileName} <==`);
+      content.push(head(fileContent, options));
+    } catch (error) {
+      throw {
+        name: 'FileReadError',
+        message: `head: ${fileName}: No such file or directory`,
+        fileName
+      };
+    }
+  }
+  const formattedContent = contentFormatter(content);
+  return formattedContent;
+};
+
 const headMain = (readFile, ...args) => {
   const { fileNames, options } = parseArgs(args);
   if (isBothPresent(options)) {
@@ -32,17 +59,7 @@ const headMain = (readFile, ...args) => {
       message: 'head: cannot combine line and byte counts',
     };
   }
-  let content;
-  try {
-    content = readFile(fileNames[0], 'utf8');
-  } catch (error) {
-    throw {
-      name: 'FileReadError',
-      message: `Unable to read ${fileNames[0]}`,
-      fileName: fileNames[0]
-    };
-  }
-  return head(content, options);
+  return headContents(readFile, fileNames, options);
 };
 
 exports.head = head;

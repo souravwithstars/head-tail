@@ -3,9 +3,15 @@ const assert = require('assert');
 const { parseArgs } = require('../src/parseArgs.js');
 
 describe('parseArgs', () => {
-  it('Should parse only the file name', () => {
+  it('Should parse only the file names', () => {
     assert.deepStrictEqual(parseArgs(['./hello.txt']), {
       fileNames: ['./hello.txt'], options: {
+        '-n': { name: 'lines', limit: 10 },
+        '-c': { name: 'bytes', limit: undefined }
+      }
+    });
+    assert.deepStrictEqual(parseArgs(['./hello.txt', 'TODO.md']), {
+      fileNames: ['./hello.txt', 'TODO.md'], options: {
         '-n': { name: 'lines', limit: 10 },
         '-c': { name: 'bytes', limit: undefined }
       }
@@ -59,6 +65,16 @@ describe('parseArgs', () => {
       fileNames: ['./hello.txt'], options: {
         '-n': { name: 'lines', limit: 10 },
         '-c': { name: 'bytes', limit: 5 }
+      }
+    });
+  });
+
+  it('Should parse all options and file name of the given lists', () => {
+    assert.deepStrictEqual(parseArgs(
+      ['-n', '15', '-c', '50', './hello.txt', 'TODO.md']), {
+      fileNames: ['./hello.txt', 'TODO.md'], options: {
+        '-n': { name: 'lines', limit: 15 },
+        '-c': { name: 'bytes', limit: 50 }
       }
     });
   });

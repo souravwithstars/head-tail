@@ -1,4 +1,5 @@
 const fs = require('fs');
+const { exit } = require('process');
 
 const { headMain } = require('./src/headLib.js');
 
@@ -11,7 +12,8 @@ const main = () => {
   try {
     console.log(headMain(fs.readFileSync, ...argumentToFunc));
   } catch (error) {
-    console.log(error.message);
+    console.error(error.message);
+    exit(1);
   }
 };
 
