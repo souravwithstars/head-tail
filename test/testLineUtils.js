@@ -52,7 +52,13 @@ describe('joinLines', () => {
 });
 
 describe('uptoNthEle', () => {
-  it('Should give first elementof the given array', () => {
+  it('Should give first element of the given array', () => {
     assert.deepStrictEqual(uptoNthEle(['hello'], 1), ['hello']);
+  });
+
+  it('Should give first ten element of the given array', () => {
+    assert.deepStrictEqual(uptoNthEle(
+      ['h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd'],
+      10), ['h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd']);
   });
 });

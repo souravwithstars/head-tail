@@ -44,3 +44,4 @@ __DONE:__
 - [x] Provide a default of 10 for -n option.
 - [x] Make `head` for repeating same option.
 - [x] Refactoring parsing arguments for both `-n 5` and `-n5`.
+- [x] Change the contract of selector for given object.

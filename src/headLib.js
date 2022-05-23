@@ -1,33 +1,37 @@
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 const { parseArgs } = require('./parseArgs.js');
 
-const selector = ({ lines, bytes }) => {
+const isBothPresent = options => {
+  return options['-c']['limit'] && options['-n']['limit'] !== 10;
+};
+
+const selector = options => {
   const newLine = '\n';
   const newChar = '';
   let separator = newLine;
-  let option = lines;
-  if (bytes >= 0) {
+  let value = options['-n']['limit'];
+  if (options['-c']['limit'] >= 0) {
     separator = newChar;
-    option = bytes;
+    value = options['-c']['limit'];
   }
-  return { separator, option };
+  return { separator, value };
 };
 
 const head = (content, options) => {
-  const { separator, option } = selector(options);
+  const { separator, value } = selector(options);
   const lines = splitLines(content, separator);
-  const requiredLines = uptoNthEle(lines, option);
+  const requiredLines = uptoNthEle(lines, value);
   return joinLines(requiredLines, separator);
 };
 
 const headMain = (readFile, ...args) => {
-  if (args.includes('-n') && args.includes('-c')) {
+  const { fileNames, options } = parseArgs(args);
+  if (isBothPresent(options)) {
     throw {
       name: 'ParsingError',
       message: 'head: cannot combine line and byte counts',
     };
   }
-  const { fileNames, options } = parseArgs(args);
   let content;
   try {
     content = readFile(fileNames[0], 'utf8');
