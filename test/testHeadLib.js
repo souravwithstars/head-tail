@@ -1,5 +1,7 @@
 const assert = require('assert');
-const { head, selector } = require('../src/headLib.js');
+const { head, selector, displaySingleContent,
+  headContents } = require('../src/headLib.js');
+const { mockConsole, mockReadData } = require('./testHeadMain.js');
 
 describe('head ', () => {
   it('Should give a line', () => {
@@ -92,5 +94,58 @@ describe('selector', () => {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: 10 }
     }), { separator: '', value: 10 });
+  });
+});
+
+describe('displayContent', () => {
+  it('Should display the content of given single file', () => {
+    const expContent = ['hello'];
+    const mockedConsole = mockConsole(expContent);
+    displaySingleContent({
+      status: { errorOccurred: false, message: '' },
+      content: 'hello'
+    }, mockedConsole);
+    assert.ok(mockedConsole.index === 1);
+    assert.deepStrictEqual(mockedConsole.content, expContent);
+  });
+
+  it('Should display the error for status of error true', () => {
+    const expContent = ['head: something.txt: No such file or directory'];
+    const mockedConsole = mockConsole(expContent);
+    displaySingleContent({
+      status: {
+        errorOccurred: true,
+        message: 'something.txt: No such file or directory'
+      },
+      content: ''
+    }, mockedConsole);
+    assert.ok(mockedConsole.index === 1);
+    assert.deepStrictEqual(mockedConsole.content, expContent);
+  });
+});
+
+describe('headContents', () => {
+  it('Should give a list of file, content and status of given files', () => {
+    const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
+    assert.deepStrictEqual(headContents(mockReadFileSync, ['hello.txt'], {
+      '-n': { name: 'lines', limit: 10 },
+      '-c': { name: 'bytes', limit: undefined }
+    }), [{
+      fileName: 'hello.txt', content: 'hello',
+      status: { errorOccurred: false, message: '' }
+    }]);
+  });
+
+  it('Should give errorOccurred in status as true for wrong file', () => {
+    const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
+    assert.deepStrictEqual(headContents(mockReadFileSync, ['something.txt'], {
+      '-n': { name: 'lines', limit: 10 },
+      '-c': { name: 'bytes', limit: undefined }
+    }), [{
+      fileName: 'something.txt', content: '', status: {
+        errorOccurred: true,
+        message: 'something.txt: No such file or directory'
+      }
+    }]);
   });
 });

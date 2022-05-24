@@ -2,7 +2,6 @@ __TODO:__
 
 - [ ] Report usage for invalid option and without file name.
 - [ ] Report error for invalid values to option.
-- [ ] Test intermediate functions.
  
 __MAYBE:__
 
@@ -46,3 +45,5 @@ __DONE:__
 - [x] Refactoring parsing arguments for both `-n 5` and `-n5`.
 - [x] Change the contract of selector for given object.
 - [x] Make `head` work for multiple files.
+- [x] Test intermediate functions.
+- [x] Implement function for output structure.

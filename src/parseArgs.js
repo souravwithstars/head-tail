@@ -22,12 +22,12 @@ const isKeyValCombo = element => {
 const getOptionsValue = (args, options) => {
   let index = 0, option, value;
   while (index < args.length) {
-    if (!isKeyValCombo(args[index])) {
-      [option, value] = args.slice(index, index + 2);
-      index += 2;
-    } else {
+    if (isKeyValCombo(args[index])) {
       [option, value] = parseKeyValCombo(args[index]);
       index += 1;
+    } else {
+      [option, value] = args.slice(index, index + 2);
+      index += 2;
     }
     if (isIncludes(Object.keys(options), option)) {
       options[option]['limit'] = isFinite(value) ? +value : value;
@@ -48,3 +48,8 @@ const parseArgs = args => {
 };
 
 exports.parseArgs = parseArgs;
+exports.getOptionsValue = getOptionsValue;
+exports.isKeyValCombo = isKeyValCombo;
+exports.parseKeyValCombo = parseKeyValCombo;
+exports.getIndexOfFirst = getIndexOfFirst;
+exports.isIncludes = isIncludes;

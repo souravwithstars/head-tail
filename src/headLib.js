@@ -24,34 +24,45 @@ const head = (content, options) => {
   return joinLines(requiredLines, separator);
 };
 
-const contentFormatter = content => {
-  if (content.length < 3) {
-    return content[content.length - 1];
-  }
-  return joinLines(content, '\n');
-};
-
 const headContents = (readFile, fileNames, options) => {
-  const content = [];
-  for (let index = 0; index < fileNames.length; index += 1) {
-    const fileName = fileNames[index];
+  return fileNames.map((fileName) => {
+    let content = '';
+    const status = { errorOccurred: false, message: '' };
     try {
       const fileContent = readFile(fileName, 'utf8');
-      content.push(`\n==> ${fileName} <==`);
-      content.push(head(fileContent, options));
+      content = head(fileContent, options);
     } catch (error) {
-      throw {
-        name: 'FileReadError',
-        message: `head: ${fileName}: No such file or directory`,
-        fileName
-      };
+      status.errorOccurred = true;
+      status.message = `${fileName}: No such file or directory`;
     }
-  }
-  const formattedContent = contentFormatter(content);
-  return formattedContent;
+    return { fileName, content, status };
+  });
 };
 
-const headMain = (readFile, ...args) => {
+const displaySingleContent = ({ status, content }, { log, error }) => {
+  if (status.errorOccurred) {
+    error(`head: ${status.message}`);
+    return;
+  }
+  log(content);
+};
+
+const displayMultipleContents = (lists, { log, error }) => {
+  lists.forEach(({ fileName, content, status }) => {
+    if (status.errorOccurred) {
+      error(`head : ${status.message}\n`);
+    } else {
+      log(`==> ${fileName} <==\n${content}\n`);
+    }
+  });
+};
+
+const headMain = (readFile, args, consoleFn) => {
+  if (args.length === 0) {
+    throw {
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
+  }
   const { fileNames, options } = parseArgs(args);
   if (isBothPresent(options)) {
     throw {
@@ -59,9 +70,16 @@ const headMain = (readFile, ...args) => {
       message: 'head: cannot combine line and byte counts',
     };
   }
-  return headContents(readFile, fileNames, options);
+  const contents = headContents(readFile, fileNames, options);
+  if (contents.length === 1) {
+    displaySingleContent(contents[0], consoleFn);
+    return;
+  }
+  displayMultipleContents(contents, consoleFn);
 };
 
 exports.head = head;
 exports.headMain = headMain;
 exports.selector = selector;
+exports.headContents = headContents;
+exports.displaySingleContent = displaySingleContent;
