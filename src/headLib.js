@@ -1,3 +1,4 @@
+const { exit } = require('process');
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 const { parseArgs } = require('./parseArgs.js');
 
@@ -42,27 +43,26 @@ const headContents = (readFile, fileNames, options) => {
 const displaySingleContent = ({ status, content }, { log, error }) => {
   if (status.errorOccurred) {
     error(`head: ${status.message}`);
-    return;
+    return 1;
   }
   log(content);
+  return 0;
 };
 
 const displayMultipleContents = (lists, { log, error }) => {
+  let exitCode = 0;
   lists.forEach(({ fileName, content, status }) => {
     if (status.errorOccurred) {
       error(`head : ${status.message}\n`);
+      exitCode = 1;
     } else {
       log(`==> ${fileName} <==\n${content}\n`);
     }
   });
+  return exitCode;
 };
 
 const headMain = (readFile, args, consoleFn) => {
-  if (args.length === 0) {
-    throw {
-      message: 'usage: head [-n lines | -c bytes] [file ...]'
-    };
-  }
   const { fileNames, options } = parseArgs(args);
   if (isBothPresent(options)) {
     throw {
@@ -72,10 +72,11 @@ const headMain = (readFile, args, consoleFn) => {
   }
   const contents = headContents(readFile, fileNames, options);
   if (contents.length === 1) {
-    displaySingleContent(contents[0], consoleFn);
-    return;
+    const exitCode = displaySingleContent(contents[0], consoleFn);
+    exit(exitCode);
   }
-  displayMultipleContents(contents, consoleFn);
+  const exitCode = displayMultipleContents(contents, consoleFn);
+  exit(exitCode);
 };
 
 exports.head = head;

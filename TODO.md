@@ -2,6 +2,8 @@ __TODO:__
 
 - [ ] Report usage for invalid option and without file name.
 - [ ] Report error for invalid values to option.
+- [ ] Create Validation functions for options ans values.
+- [ ] Create exit code for errors.
  
 __MAYBE:__
 
