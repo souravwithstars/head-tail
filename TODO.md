@@ -1,10 +1,18 @@
 __TODO:__
+
+- [ ] Establish contract for `tail` utility.
+- [ ] Make `testTail.js`.
+- [ ] Start with an expectation.
+- [ ] Make `tail` work for a single line instead of file.
+- [ ] Make `tail` work for multiple lines and empty line.
+- [ ] Implement options as a parameter to `tail`.
+- [ ] Investigate how `tail` works with options.
  
 __MAYBE:__
 
 __DONE:__
 
-- [x] Establish contract for utility.
+- [x] Establish contract for `head` utility.
 - [x] Make correct directory structure.
 - [x] Verify `mocha` exists.
 - [x] Make `testHead.js`.
