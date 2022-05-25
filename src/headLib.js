@@ -1,10 +1,6 @@
-const { exit } = require('process');
 const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 const { parseArgs } = require('./parseArgs.js');
-
-const isBothPresent = options => {
-  return options['-c']['limit'] && options['-n']['limit'] !== 10;
-};
+const { validateCombineOptions } = require('./validateFunctions.js');
 
 const selector = options => {
   const newLine = '\n';
@@ -64,19 +60,14 @@ const displayMultipleContents = (lists, { log, error }) => {
 
 const headMain = (readFile, args, consoleFn) => {
   const { fileNames, options } = parseArgs(args);
-  if (isBothPresent(options)) {
-    throw {
-      name: 'ParsingError',
-      message: 'head: cannot combine line and byte counts',
-    };
-  }
+  validateCombineOptions(options);
   const contents = headContents(readFile, fileNames, options);
   if (contents.length === 1) {
     const exitCode = displaySingleContent(contents[0], consoleFn);
-    exit(exitCode);
+    return exitCode;
   }
   const exitCode = displayMultipleContents(contents, consoleFn);
-  exit(exitCode);
+  return exitCode;
 };
 
 exports.head = head;

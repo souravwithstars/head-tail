@@ -1,12 +1,18 @@
 /* eslint-disable complexity */
+const { validations }
+  = require('./validateFunctions.js');
+
 const isIncludes = (array, element) => {
   return array.includes(element);
 };
 
-const getIndexOfFirst = args => {
-  const regEx = /[^-][^\d]/;
+const getIndexOfFirstFile = args => {
+  if (/^[^-]/.test(args[0])) {
+    return 0;
+  }
+  const regEx = /^[^- | \d]/;
   const firstFile = args.find(element => regEx.test(element));
-  return args.indexOf(firstFile);
+  return firstFile ? args.indexOf(firstFile) : firstFile;
 };
 
 const parseKeyValCombo = element => {
@@ -36,14 +42,39 @@ const getOptionsValue = (args, options) => {
   return options;
 };
 
+const structureArguments = args => {
+  const structuredArgs = args.flatMap(element => {
+    if (element.startsWith('-') && /[a-z]/.test(element[1])) {
+      return [element.slice(0, 2), element.slice(2)];
+    } else if (/[a-z]/.test(element[0])) {
+      return [element[0], element.slice(1)];
+    }
+    return element;
+  });
+  return structuredArgs.filter(element => element);
+};
+
+const validateFile = files => {
+  if (files.length === 0) {
+    throw {
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
+  }
+};
+
 const parseArgs = args => {
   let options = {
     '-n': { name: 'lines', limit: 10 },
     '-c': { name: 'bytes', limit: undefined }
   };
-  const fileNames = args.slice(getIndexOfFirst(args), args.length);
-  const remainArgs = args.slice(0, getIndexOfFirst(args));
-  options = getOptionsValue(remainArgs, options);
+  const indexOfFirstFile = getIndexOfFirstFile(args);
+  const fileNames = indexOfFirstFile !== undefined ?
+    args.slice(indexOfFirstFile, args.length) : [];
+  validateFile(fileNames);
+  const remainArgs = args.slice(0, indexOfFirstFile);
+  const structuredArgs = structureArguments(remainArgs);
+  validations(structuredArgs);
+  options = getOptionsValue(structuredArgs, options);
   return { fileNames, options };
 };
 
@@ -51,5 +82,5 @@ exports.parseArgs = parseArgs;
 exports.getOptionsValue = getOptionsValue;
 exports.isKeyValCombo = isKeyValCombo;
 exports.parseKeyValCombo = parseKeyValCombo;
-exports.getIndexOfFirst = getIndexOfFirst;
+exports.getIndexOfFirstFile = getIndexOfFirstFile;
 exports.isIncludes = isIncludes;

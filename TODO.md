@@ -1,9 +1,4 @@
 __TODO:__
-
-- [ ] Report usage for invalid option and without file name.
-- [ ] Report error for invalid values to option.
-- [ ] Create Validation functions for options ans values.
-- [ ] Create exit code for errors.
  
 __MAYBE:__
 
@@ -49,3 +44,7 @@ __DONE:__
 - [x] Make `head` work for multiple files.
 - [x] Test intermediate functions.
 - [x] Implement function for output structure.
+- [x] Report usage for invalid option and without file name.
+- [x] Report error for invalid values to option.
+- [x] Create Validation functions for options ans values.
+- [x] Create exit code for errors.

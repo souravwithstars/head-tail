@@ -1,7 +1,7 @@
 const assert = require('assert');
 
 const { parseArgs, getOptionsValue, isKeyValCombo, parseKeyValCombo,
-  getIndexOfFirst, isIncludes } = require('../src/parseArgs.js');
+  getIndexOfFirstFile, isIncludes } = require('../src/parseArgs.js');
 
 describe('parseArgs', () => {
   it('Should parse only the file names', () => {
@@ -145,16 +145,16 @@ describe('parseKeyValCombo', () => {
   });
 });
 
-describe('getIndexOfFirst', () => {
+describe('getIndexOfFirstFile', () => {
   it('Should give the index of first found file', () => {
-    assert.strictEqual(getIndexOfFirst(
+    assert.strictEqual(getIndexOfFirstFile(
       ['TODO.md']), 0);
-    assert.strictEqual(getIndexOfFirst(
+    assert.strictEqual(getIndexOfFirstFile(
       ['-n', '15', '-c20', 'README.md']), 3);
   });
 
   it('Should give the index of first file if multiple files found', () => {
-    assert.strictEqual(getIndexOfFirst(
+    assert.strictEqual(getIndexOfFirstFile(
       ['-c', '50', 'TODO.md', 'README.md']), 2);
   });
 });
