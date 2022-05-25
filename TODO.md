@@ -1,6 +1,5 @@
 __TODO:__
 
-- [ ] Implement options as a parameter to `tail`.
 - [ ] Investigate how `tail` works with options.
 - [ ] Implement `tail` with lines(-n) option.
 - [ ] Implement `tail` with bytes(-c) option.
@@ -65,3 +64,4 @@ __DONE:__
 - [x] Start with an expectation.
 - [x] Make `tail` work for a single line instead of file.
 - [x] Make `tail` work for multiple lines and empty line.
+- [x] Implement option as a parameter to `tail`.
