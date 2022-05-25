@@ -1,8 +1,5 @@
 __TODO:__
 
-- [ ] Make `testTail.js`.
-- [ ] Start with an expectation.
-- [ ] Make `tail` work for a single line instead of file.
 - [ ] Make `tail` work for multiple lines and empty line.
 - [ ] Implement options as a parameter to `tail`.
 - [ ] Investigate how `tail` works with options.
@@ -61,3 +58,6 @@ __DONE:__
 * `tail.js`
 
 - [x] Establish contract for `tail` utility.
+- [x] Make `testTail.js`.
+- [x] Start with an expectation.
+- [x] Make `tail` work for a single line instead of file.
