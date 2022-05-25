@@ -2,9 +2,7 @@ __TODO:__
 
 - [ ] Implement `tail file` without options.
 - [ ] Provide default for options of `tail`.
-- [ ] Separated '-n' to a constant.
 - [ ] Keep `usage` for without options.
-- [ ] Extract different functions for lines and bytes. 
 
 __MAYBE:__
 
@@ -68,3 +66,4 @@ __DONE:__
 - [x] Investigate how `tail` works with options.
 - [x] Implement `tail` with lines(-n) option.
 - [x] Implement `tail` with bytes(-c) option.
+- [x] Extract different functions for lines and bytes. 
