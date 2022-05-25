@@ -1,7 +1,9 @@
-const tail = (content, option) => {
-  const limit = option['-n']['limit'];
-  const lines = content.split('\n');
-  return lines.slice(0 - limit).join('\n');
+const tail = (content, options) => {
+  const limit = options['-c']['limit'] ?
+    options['-c']['limit'] : options['-n']['limit'];
+  const separator = options['-c']['limit'] ? '' : '\n';
+  const lines = content.split(separator);
+  return lines.slice(0 - limit).join(separator);
 };
 
 exports.tail = tail;
