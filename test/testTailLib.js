@@ -1,7 +1,7 @@
 const assert = require('assert');
-const { tail } = require('../src/tailLib.js');
+const { tail, forLines, forBytes } = require('../src/tailLib.js');
 
-describe.only('tail', () => {
+describe('tail', () => {
   it('Should give a single line', () => {
     assert.strictEqual(tail('hello world',
       {
@@ -78,5 +78,42 @@ describe.only('tail', () => {
         '-n': { names: 'lines', limit: 1 },
         '-c': { names: 'bytes', limit: 10 }
       }), 'bye\nworld\n');
+  });
+});
+
+describe('forLines', () => {
+  it('Should give one line', () => {
+    assert.strictEqual(forLines('hello world', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: undefined }
+    }), 'hello world');
+    assert.strictEqual(forLines('bye world', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: undefined }
+    }), 'bye world');
+  });
+
+  it('Should give only last line of given content', () => {
+    assert.strictEqual(forLines('hello world\nbye world', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: undefined }
+    }), 'bye world');
+    assert.strictEqual(forLines('bye world\nhello world', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: undefined }
+    }), 'hello world');
+  });
+});
+
+describe('forBytes', () => {
+  it('Should give only last five characters of given content', () => {
+    assert.strictEqual(forBytes('hello', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: 5 }
+    }), 'hello');
+    assert.strictEqual(forBytes('world', {
+      '-n': { names: 'lines', limit: 1 },
+      '-c': { names: 'bytes', limit: 5 }
+    }), 'world');
   });
 });
