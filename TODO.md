@@ -1,7 +1,5 @@
 __TODO:__
 
-- [ ] Investigate how `tail` works with options.
-- [ ] Implement `tail` with lines(-n) option.
 - [ ] Implement `tail` with bytes(-c) option.
 - [ ] Implement `tail file` without options.
 - [ ] Provide default for options of `tail`.
@@ -65,3 +63,5 @@ __DONE:__
 - [x] Make `tail` work for a single line instead of file.
 - [x] Make `tail` work for multiple lines and empty line.
 - [x] Implement option as a parameter to `tail`.
+- [x] Investigate how `tail` works with options.
+- [x] Implement `tail` with lines(-n) option.
