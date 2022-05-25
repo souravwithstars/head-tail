@@ -1,8 +1,9 @@
 __TODO:__
 
-- [ ] Make `tail` work for multiple lines and empty line.
 - [ ] Implement options as a parameter to `tail`.
 - [ ] Investigate how `tail` works with options.
+- [ ] Implement `tail` with count(-c) option.
+- [ ] Provide default for options of `tail`.
  
 __MAYBE:__
 
@@ -61,3 +62,4 @@ __DONE:__
 - [x] Make `testTail.js`.
 - [x] Start with an expectation.
 - [x] Make `tail` work for a single line instead of file.
+- [x] Make `tail` work for multiple lines and empty line.
