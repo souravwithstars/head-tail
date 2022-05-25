@@ -2,7 +2,9 @@ __TODO:__
 
 - [ ] Implement options as a parameter to `tail`.
 - [ ] Investigate how `tail` works with options.
-- [ ] Implement `tail` with count(-c) option.
+- [ ] Implement `tail` with lines(-n) option.
+- [ ] Implement `tail` with bytes(-c) option.
+- [ ] Implement `tail file` without options.
 - [ ] Provide default for options of `tail`.
  
 __MAYBE:__
