@@ -17,6 +17,16 @@ const tail = (content, options) => {
     forBytes(content, options) : forLines(content, options);
 };
 
+const tailMain = (readFile, fileName) => {
+  const content = readFile(fileName, 'utf8');
+  const options = {
+    '-n': { names: 'lines', limit: 1 },
+    '-c': { names: 'bytes', limit: undefined }
+  };
+  return tail(content, options);
+};
+
 exports.tail = tail;
 exports.forLines = forLines;
 exports.forBytes = forBytes;
+exports.tailMain = tailMain;

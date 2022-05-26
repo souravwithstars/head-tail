@@ -118,7 +118,7 @@
         "*.js"
       ],
       "rules": {
-        "no-magic-numbers": "off"
+        "no-magic-numbers": "warn"
       }
     }
   ]
