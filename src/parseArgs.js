@@ -1,5 +1,4 @@
-/* eslint-disable complexity */
-const { validations }
+const { validations, validateCombineOptions, validateFile }
   = require('./validateFunctions.js');
 
 const isIncludes = (array, element) => {
@@ -7,9 +6,6 @@ const isIncludes = (array, element) => {
 };
 
 const getIndexOfFirstFile = args => {
-  if (/^[^-]/.test(args[0])) {
-    return 0;
-  }
   const regEx = /^[^- | \d]/;
   const firstFile = args.find(element => regEx.test(element));
   return firstFile ? args.indexOf(firstFile) : firstFile;
@@ -26,18 +22,9 @@ const isKeyValCombo = element => {
 };
 
 const getOptionsValue = (args, options) => {
-  let index = 0, option, value;
-  while (index < args.length) {
-    if (isKeyValCombo(args[index])) {
-      [option, value] = parseKeyValCombo(args[index]);
-      index += 1;
-    } else {
-      [option, value] = args.slice(index, index + 2);
-      index += 2;
-    }
-    if (isIncludes(Object.keys(options), option)) {
-      options[option]['limit'] = isFinite(value) ? +value : value;
-    }
+  for (let index = 0; index < args.length; index += 2) {
+    const [option, value] = args.slice(index, index + 2);
+    options[option]['limit'] = isFinite(value) ? +value : value;
   }
   return options;
 };
@@ -54,14 +41,6 @@ const structureArguments = args => {
   return structuredArgs.filter(element => element);
 };
 
-const validateFile = files => {
-  if (files.length === 0) {
-    throw {
-      message: 'usage: head [-n lines | -c bytes] [file ...]'
-    };
-  }
-};
-
 const parseArgs = args => {
   let options = {
     '-n': { name: 'lines', limit: 10 },
@@ -75,6 +54,7 @@ const parseArgs = args => {
   const structuredArgs = structureArguments(remainArgs);
   validations(structuredArgs);
   options = getOptionsValue(structuredArgs, options);
+  validateCombineOptions(options);
   return { fileNames, options };
 };
 

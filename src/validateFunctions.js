@@ -24,6 +24,14 @@ const validateSwitches = options => {
   }
 };
 
+const validateFile = files => {
+  if (files.length === 0) {
+    throw {
+      message: 'usage: head [-n lines | -c bytes] [file ...]'
+    };
+  }
+};
+
 const validateIllegalCount = (switches, values) => {
   const illegalValue = +values.find(number => number <= 0);
   const index = values.indexOf(illegalValue + '');
@@ -47,4 +55,5 @@ const validations = args => {
 exports.validateCombineOptions = validateCombineOptions;
 exports.validateIllegalCount = validateIllegalCount;
 exports.validateSwitches = validateSwitches;
+exports.validateFile = validateFile;
 exports.validations = validations;

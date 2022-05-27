@@ -70,13 +70,11 @@ describe('parseArgs', () => {
     });
   });
 
-  it('Should parse all options and file name of the given lists', () => {
-    assert.deepStrictEqual(parseArgs(
+  it('Should throw error if both -n and -c provided', () => {
+    assert.throws(() => parseArgs(
       ['-n', '15', '-c', '50', 'hello.txt', 'TODO.md']), {
-      fileNames: ['hello.txt', 'TODO.md'], options: {
-        '-n': { name: 'lines', limit: 15 },
-        '-c': { name: 'bytes', limit: 50 }
-      }
+      name: 'ParsingError',
+      message: 'head: cannot combine line and byte counts',
     });
   });
 });
@@ -90,12 +88,15 @@ describe('getOptionsValue', () => {
       '-n': { name: 'lines', limit: 1 },
       '-c': { name: 'bytes', limit: undefined }
     });
-    assert.deepStrictEqual(getOptionsValue(['-n', '15', '-n1'], {
+  });
+
+  it('Should give object in which -c limit is 1', () => {
+    assert.deepStrictEqual(getOptionsValue(['-n', '15', '-c', '1'], {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: undefined }
     }), {
-      '-n': { name: 'lines', limit: 1 },
-      '-c': { name: 'bytes', limit: undefined }
+      '-n': { name: 'lines', limit: 15 },
+      '-c': { name: 'bytes', limit: 1 }
     });
   });
 
@@ -110,7 +111,7 @@ describe('getOptionsValue', () => {
   });
 
   it('Should give object in limit of -n is 15 and -c is 20', () => {
-    assert.deepStrictEqual(getOptionsValue(['-n15', '-c20'], {
+    assert.deepStrictEqual(getOptionsValue(['-n', '15', '-c', '20'], {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: undefined }
     }), {

@@ -1,5 +1,4 @@
 const { parseArgs } = require('./parseArgs.js');
-const { validateCombineOptions } = require('./validateFunctions.js');
 
 const splitLines = (content, separator) => content.split(separator);
 
@@ -52,11 +51,10 @@ const displayRawContent = ({ content, message }, log, error) => {
   return 0;
 };
 
-const displayFormattedContent = (contents, log, error) => {
-  contents.forEach(({ content, fileName, message }) => {
-    message ? error(errorFormatter(message))
-      : log(formatHeader(fileName, content));
-  });
+const displayFormattedContent = (fileContent, log, error) => {
+  const { content, fileName, message } = fileContent;
+  message ? error(errorFormatter(message))
+    : log(formatHeader(fileName, content));
 };
 
 const getExitCode = contents => {
@@ -65,7 +63,6 @@ const getExitCode = contents => {
 
 const headMain = (readFile, log, error, args) => {
   const { fileNames, options } = parseArgs(args);
-  validateCombineOptions(options);
   const contents = headFiles(readFile, fileNames, options);
   const displayFunc = contents.length > 1
     ? displayFormattedContent : displayRawContent;
