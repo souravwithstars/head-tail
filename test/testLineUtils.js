@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { splitLines, joinLines, uptoNthEle } = require('../src/lineUtils.js');
+const { splitLines, joinLines } = require('../src/headLib.js');
 
 describe('splitLines', () => {
   it('Should give array of a single element', () => {
@@ -48,17 +48,5 @@ describe('joinLines', () => {
       joinLines(['hello', '', 'world'], '\n'), 'hello\n\nworld');
     assert.deepStrictEqual(joinLines(
       ['b', 'y', 'e', '', '', 'w', 'o', 'r', 'l', 'd'], ''), 'byeworld');
-  });
-});
-
-describe('uptoNthEle', () => {
-  it('Should give first element of the given array', () => {
-    assert.deepStrictEqual(uptoNthEle(['hello'], 1), ['hello']);
-  });
-
-  it('Should give first ten element of the given array', () => {
-    assert.deepStrictEqual(uptoNthEle(
-      ['h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd'],
-      10), ['h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd']);
   });
 });

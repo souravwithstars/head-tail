@@ -1,99 +1,93 @@
 const assert = require('assert');
-const { head, selector, displayRawContent,
-  headFiles } = require('../src/headLib.js');
+const { head, displayRawContent,
+  headFiles, forLines, forBytes } = require('../src/headLib.js');
 const { mockConsole, mockReadData } = require('./testHeadMain.js');
 
 describe('head', () => {
   it('Should give a line', () => {
-    assert.strictEqual(head('hello world', {
+    const options = {
       '-n': { name: 'lines', limit: 1 },
       '-c': { name: 'bytes', limit: undefined }
-    }), 'hello world');
-    assert.strictEqual(head('bye world', {
-      '-n': { name: 'lines', limit: 1 },
-      '-c': { name: 'bytes', limit: undefined }
-    }), 'bye world');
+    };
+    assert.strictEqual(head('hello\nworld', options), 'hello');
+    assert.strictEqual(head('bye\nworld', options), 'bye');
   });
 
   it('Should give two lines', () => {
-    assert.strictEqual(head('hello\nworld', {
+    const options = {
       '-n': { name: 'lines', limit: 2 },
       '-c': { name: 'bytes', limit: undefined }
-    }), 'hello\nworld');
-    assert.strictEqual(head('bye\nworld', {
-      '-n': { name: 'lines', limit: 2 },
-      '-c': { name: 'bytes', limit: undefined }
-    }), 'bye\nworld');
-  });
-
-  it('Should give one empty line', () => {
-    assert.strictEqual(head('', {
-      '-n': { name: 'lines', limit: 1 },
-      '-c': { name: 'bytes', limit: undefined }
-    }), '');
+    };
+    assert.strictEqual(head('hello\ngood\nmorning', options), 'hello\ngood');
+    assert.strictEqual(head('good\nmorning\nsourav', options), 'good\nmorning');
   });
 
   it('Should give in between empty line', () => {
-    assert.strictEqual(head('hello\n\nworld', {
-      '-n': { name: 'lines', limit: 10 },
+    const content = 'hello\n\nworld\ngood\nmorning';
+    const options = {
+      '-n': { name: 'lines', limit: 3 },
       '-c': { name: 'bytes', limit: undefined }
-    }), 'hello\n\nworld');
-  });
-
-  it('Should give first line', () => {
-    assert.strictEqual(head('hello\nworld', {
-      '-n': { name: 'lines', limit: 1 },
-      '-c': { name: 'bytes', limit: undefined }
-    }), 'hello');
-    assert.strictEqual(head('bye\nworld', {
-      '-n': { name: 'lines', limit: 1 },
-      '-c': { name: 'bytes', limit: undefined }
-    }), 'bye');
+    };
+    assert.strictEqual(head(content, options), 'hello\n\nworld');
   });
 
   it('Should give first character', () => {
-    assert.strictEqual(head('hello', {
+    const options = {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: 1 }
-    }), 'h');
-    assert.strictEqual(head('bye', {
-      '-n': { name: 'lines', limit: 10 },
-      '-c': { name: 'bytes', limit: 1 }
-    }), 'b');
-  });
-
-  it('Should give no character', () => {
-    assert.strictEqual(head('hello', {
-      '-n': { name: 'lines', limit: 10 },
-      '-c': { name: 'bytes', limit: 0 }
-    }), '');
+    };
+    assert.strictEqual(head('hello', options), 'h');
+    assert.strictEqual(head('bye', options), 'b');
   });
 
   it('Should give first 10 characters', () => {
-    assert.strictEqual(head('hello world', {
+    const options = {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: 10 }
-    }), 'hello worl');
-    assert.strictEqual(head('bye bye world', {
-      '-n': { name: 'lines', limit: 10 },
-      '-c': { name: 'bytes', limit: 10 }
-    }), 'bye bye wo');
+    };
+    assert.strictEqual(head('hello world', options), 'hello worl');
+    assert.strictEqual(head('bye bye world', options), 'bye bye wo');
   });
 });
 
-describe('selector', () => {
-  it('Should give newLine as separator and lines limit as value', () => {
-    assert.deepStrictEqual(selector({
-      '-n': { name: 'lines', limit: 1 },
+describe('forLines', () => {
+  it('Should gives first counted lines from given content', () => {
+    const content = 'hello\nworld\ngood\nmorning';
+    const options = {
+      '-n': { name: 'lines', limit: 2 },
       '-c': { name: 'bytes', limit: undefined }
-    }), { separator: '\n', value: 1 });
+    };
+    assert.strictEqual(forLines(content, options), 'hello\nworld');
   });
 
-  it('Should give empty charcater as separator and bytes as option', () => {
-    assert.deepStrictEqual(selector({
+  it('Should gives first counted lines from given content', () => {
+    const content = 'hello\nworld\ngood\nmorning';
+    const options = {
+      '-n': { name: 'lines', limit: 1 },
+      '-c': { name: 'bytes', limit: undefined }
+    };
+    assert.strictEqual(forLines(content, options), 'hello');
+  });
+});
+
+describe('forBytes', () => {
+  it('Should gives first counted characters from given content', () => {
+    const content = 'hello\nworld\ngood\nmorning';
+    const options = {
       '-n': { name: 'lines', limit: 10 },
-      '-c': { name: 'bytes', limit: 10 }
-    }), { separator: '', value: 10 });
+      '-c': { name: 'bytes', limit: 11 }
+    };
+    assert.strictEqual(forBytes(content, options), 'hello\nworld');
+  });
+
+  it('Should gives first counted characters from given content', () => {
+    const content = 'hello\nworld\ngood\nmorning';
+    const options = {
+      '-n': { name: 'lines', limit: 10 },
+      '-c': { name: 'bytes', limit: 16 }
+    };
+    const expected = 'hello\nworld\ngood';
+    assert.strictEqual(forBytes(content, options), expected);
   });
 });
 

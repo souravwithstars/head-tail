@@ -31,7 +31,6 @@
     - [ ] Refactor `head` utility.
       - [x] Reduce complexity of `headFiles`.
       - [ ] Refator parseArgs.
-    - [ ] Extract different function for lines and bytes.
 
 * __MAYBE:__
 
@@ -81,3 +80,4 @@
     - [x] Report error for invalid values to option.
     - [x] Create Validation functions for options ans values.
     - [x] Create exit code for errors.
+    - [x] Extract different function for lines and bytes.

@@ -1,24 +1,27 @@
-const { splitLines, joinLines, uptoNthEle } = require('./lineUtils.js');
 const { parseArgs } = require('./parseArgs.js');
 const { validateCombineOptions } = require('./validateFunctions.js');
 
-const selector = options => {
+const splitLines = (content, separator) => content.split(separator);
+
+const joinLines = (lines, separator) => lines.join(separator);
+
+const forLines = (content, options) => {
   const newLine = '\n';
+  const limit = options['-n']['limit'];
+  const lines = splitLines(content, newLine);
+  return joinLines(lines.slice(0, limit), newLine);
+};
+
+const forBytes = (content, options) => {
   const newChar = '';
-  let separator = newLine;
-  let value = options['-n']['limit'];
-  if (options['-c']['limit'] >= 0) {
-    separator = newChar;
-    value = options['-c']['limit'];
-  }
-  return { separator, value };
+  const limit = options['-c']['limit'];
+  const lines = splitLines(content, newChar);
+  return joinLines(lines.slice(0, limit), newChar);
 };
 
 const head = (content, options) => {
-  const { separator, value } = selector(options);
-  const lines = splitLines(content, separator);
-  const requiredLines = uptoNthEle(lines, value);
-  return joinLines(requiredLines, separator);
+  return options['-c']['limit'] ?
+    forBytes(content, options) : forLines(content, options);
 };
 
 const headFiles = (readFile, fileNames, options) => {
@@ -71,8 +74,11 @@ const headMain = (readFile, log, error, args) => {
   return exitCode;
 };
 
+exports.splitLines = splitLines;
+exports.joinLines = joinLines;
+exports.forLines = forLines;
+exports.forBytes = forBytes;
 exports.head = head;
 exports.headMain = headMain;
-exports.selector = selector;
 exports.headFiles = headFiles;
 exports.displayRawContent = displayRawContent;

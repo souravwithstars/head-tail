@@ -1,4 +1,4 @@
-const { splitLines, joinLines } = require('./lineUtils.js');
+const { splitLines, joinLines } = require('./headLib.js');
 
 const forLines = (content, option) => {
   const limit = option['-n']['limit'];
