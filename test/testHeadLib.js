@@ -102,7 +102,6 @@ describe('displayContent', () => {
     const expContent = ['hello'];
     const mockedConsole = mockConsole(expContent);
     displayRawContent({
-      status: { errorOccurred: false, message: '' },
       content: 'hello'
     }, mockedConsole.log, mockedConsole.error);
     assert.ok(mockedConsole.index === 1);
@@ -113,11 +112,7 @@ describe('displayContent', () => {
     const expContent = ['head: something.txt: No such file or directory'];
     const mockedConsole = mockConsole(expContent);
     displayRawContent({
-      status: {
-        errorOccurred: true,
-        message: 'something.txt: No such file or directory'
-      },
-      content: ''
+      message: 'something.txt: No such file or directory'
     }, mockedConsole.log, mockedConsole.error);
     assert.ok(mockedConsole.index === 1);
     assert.deepStrictEqual(mockedConsole.content, expContent);
@@ -130,22 +125,18 @@ describe('headFiles', () => {
     assert.deepStrictEqual(headFiles(mockReadFileSync, ['hello.txt'], {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: undefined }
-    }), [{
-      fileName: 'hello.txt', content: 'hello',
-      status: { errorOccurred: false, message: '' }
-    }]);
+    }), [{ fileName: 'hello.txt', content: 'hello' }]);
   });
 
   it('Should give errorOccurred in status as true for wrong file', () => {
     const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
+    const expected = [{
+      fileName: 'something.txt',
+      message: 'something.txt: No such file or directory'
+    }];
     assert.deepStrictEqual(headFiles(mockReadFileSync, ['something.txt'], {
       '-n': { name: 'lines', limit: 10 },
       '-c': { name: 'bytes', limit: undefined }
-    }), [{
-      fileName: 'something.txt', content: '', status: {
-        errorOccurred: true,
-        message: 'something.txt: No such file or directory'
-      }
-    }]);
+    }), expected);
   });
 });

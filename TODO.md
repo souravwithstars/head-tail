@@ -28,6 +28,11 @@
 
 * __TODO:__
 
+    - [ ] Refactor `head` utility.
+      - [x] Reduce complexity of `headFiles`.
+      - [ ] Refator parseArgs.
+    - [ ] Extract different function for lines and bytes.
+
 * __MAYBE:__
 
 * __DONE:__

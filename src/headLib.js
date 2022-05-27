@@ -22,17 +22,14 @@ const head = (content, options) => {
 };
 
 const headFiles = (readFile, fileNames, options) => {
-  return fileNames.map((fileName) => {
-    let content = '';
-    const status = { errorOccurred: false, message: '' };
+  return fileNames.map(fileName => {
     try {
       const fileContent = readFile(fileName, 'utf8');
-      content = head(fileContent, options);
+      return { fileName, content: head(fileContent, options) };
     } catch (error) {
-      status.errorOccurred = true;
-      status.message = `${fileName}: No such file or directory`;
+      const message = `${fileName}: No such file or directory`;
+      return { fileName, message };
     }
-    return { fileName, content, status };
   });
 };
 
@@ -43,9 +40,9 @@ const formatHeader = (fileName, content) => {
   return header + '\n' + content;
 };
 
-const displayRawContent = ({ content, status }, log, error) => {
-  if (status.errorOccurred) {
-    error(errorFormatter(status.message));
+const displayRawContent = ({ content, message }, log, error) => {
+  if (message) {
+    error(errorFormatter(message));
     return 1;
   }
   log(content);
@@ -53,14 +50,14 @@ const displayRawContent = ({ content, status }, log, error) => {
 };
 
 const displayFormattedContent = (contents, log, error) => {
-  contents.forEach(({ content, fileName, status }) => {
-    status.errorOccurred ? error(errorFormatter(status.message))
+  contents.forEach(({ content, fileName, message }) => {
+    message ? error(errorFormatter(message))
       : log(formatHeader(fileName, content));
   });
 };
 
 const getExitCode = contents => {
-  return contents.some(({ status }) => status.errorOccurred) ? 1 : 0;
+  return contents.some(({ message }) => message) ? 1 : 0;
 };
 
 const headMain = (readFile, log, error, args) => {
