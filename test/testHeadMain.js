@@ -30,7 +30,8 @@ describe('headMain', () => {
     const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
     const expContent = ['hello'];
     const mockedConsole = mockConsole();
-    headMain(mockReadFileSync, ['hello.txt'], mockedConsole);
+    headMain(
+      mockReadFileSync, mockedConsole.log, mockedConsole.error, ['hello.txt']);
     assert.ok(mockedConsole.index === 1);
     assert.deepStrictEqual(mockedConsole.content, expContent);
   });
@@ -39,7 +40,8 @@ describe('headMain', () => {
     const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
     const expContent = ['hello'];
     const mockedConsole = mockConsole();
-    headMain(mockReadFileSync, ['-n', '1', 'hello.txt'], mockedConsole);
+    headMain(mockReadFileSync,
+      mockedConsole.log, mockedConsole.error, ['-n', '1', 'hello.txt']);
     assert.ok(mockedConsole.index === 1);
     assert.deepStrictEqual(mockedConsole.content, expContent);
   });
@@ -49,7 +51,8 @@ describe('headMain', () => {
       ['numbers.txt'], '0\n1\n2\n3\n4\n5\n6\n7\n8\n9', 'utf8');
     const expContent = ['0\n1\n2\n3\n4\n5\n6\n7\n8\n9'];
     const mockedConsole = mockConsole();
-    headMain(mockReadFileSync, ['numbers.txt'], mockedConsole);
+    headMain(mockReadFileSync,
+      mockedConsole.log, mockedConsole.error, ['numbers.txt']);
     assert.ok(mockedConsole.index === 1);
     assert.deepStrictEqual(mockedConsole.content, expContent);
   });
@@ -58,7 +61,8 @@ describe('headMain', () => {
     const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
     const mockedConsole = mockConsole();
     const expected = ['head: something.txt: No such file or directory'];
-    headMain(mockReadFileSync, ['something.txt'], mockedConsole);
+    headMain(mockReadFileSync,
+      mockedConsole.log, mockedConsole.error, ['something.txt']);
     assert.ok(mockedConsole.index === 1);
     assert.deepStrictEqual(mockedConsole.content, expected);
   });
@@ -67,7 +71,8 @@ describe('headMain', () => {
     const mockReadFileSync = mockReadData(['hello.txt'], 'hello', 'utf8');
     const mockedConsole = mockConsole();
     assert.throws(() => headMain(mockReadFileSync,
-      ['-n', '1', '-c', '10', 'something.txt'], mockedConsole), {
+      mockedConsole.log, mockedConsole.error,
+      ['-n', '1', '-c', '10', 'something.txt']), {
       name: 'ParsingError',
       message: 'head: cannot combine line and byte counts',
     });

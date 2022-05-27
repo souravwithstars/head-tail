@@ -21,7 +21,7 @@ const head = (content, options) => {
   return joinLines(requiredLines, separator);
 };
 
-const headContents = (readFile, fileNames, options) => {
+const headFiles = (readFile, fileNames, options) => {
   return fileNames.map((fileName) => {
     let content = '';
     const status = { errorOccurred: false, message: '' };
@@ -36,42 +36,46 @@ const headContents = (readFile, fileNames, options) => {
   });
 };
 
-const displaySingleContent = ({ status, content }, { log, error }) => {
+const errorFormatter = content => `head: ${content}`;
+
+const formatHeader = (fileName, content) => {
+  const header = `==> ${fileName} <==`;
+  return header + '\n' + content;
+};
+
+const displayRawContent = ({ content, status }, log, error) => {
   if (status.errorOccurred) {
-    error(`head: ${status.message}`);
+    error(errorFormatter(status.message));
     return 1;
   }
   log(content);
   return 0;
 };
 
-const displayMultipleContents = (lists, { log, error }) => {
-  let exitCode = 0;
-  lists.forEach(({ fileName, content, status }) => {
-    if (status.errorOccurred) {
-      error(`head : ${status.message}\n`);
-      exitCode = 1;
-    } else {
-      log(`==> ${fileName} <==\n${content}\n`);
-    }
+const displayFormattedContent = (contents, log, error) => {
+  contents.forEach(({ content, fileName, status }) => {
+    status.errorOccurred ? error(errorFormatter(status.message))
+      : log(formatHeader(fileName, content));
   });
-  return exitCode;
 };
 
-const headMain = (readFile, args, consoleFn) => {
+const getExitCode = contents => {
+  return contents.some(({ status }) => status.errorOccurred) ? 1 : 0;
+};
+
+const headMain = (readFile, log, error, args) => {
   const { fileNames, options } = parseArgs(args);
   validateCombineOptions(options);
-  const contents = headContents(readFile, fileNames, options);
-  if (contents.length === 1) {
-    const exitCode = displaySingleContent(contents[0], consoleFn);
-    return exitCode;
-  }
-  const exitCode = displayMultipleContents(contents, consoleFn);
+  const contents = headFiles(readFile, fileNames, options);
+  const displayFunc = contents.length > 1
+    ? displayFormattedContent : displayRawContent;
+  contents.forEach(content => displayFunc(content, log, error));
+  const exitCode = getExitCode(contents);
   return exitCode;
 };
 
 exports.head = head;
 exports.headMain = headMain;
 exports.selector = selector;
-exports.headContents = headContents;
-exports.displaySingleContent = displaySingleContent;
+exports.headFiles = headFiles;
+exports.displayRawContent = displayRawContent;
